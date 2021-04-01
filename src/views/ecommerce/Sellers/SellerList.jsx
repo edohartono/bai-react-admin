@@ -26,7 +26,7 @@ import { IDR_Format } from "../../../utils/Currency";
 import DataTable from "react-data-table-component";
 //var ps;
 
-class Product extends React.Component {
+class SellerList extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -149,7 +149,7 @@ class Product extends React.Component {
   }
   update(id, active) {
     this.setState({ submit: true });
-    API.patch("product", {
+    API.patch("seller", {
       id: id,
       data: {
         active: active,
@@ -167,11 +167,11 @@ class Product extends React.Component {
 
   async getData() {
     let products = await this.getProduct();
-    this.setState({ products: products.result.products });
+    // this.setState({ products: products.result.products });
   }
 
   getProduct() {
-    return API.get("products/all", {}).then((res) => {
+    return API.get("seller/all", {}).then((res) => {
       return res;
     });
   }
@@ -184,7 +184,7 @@ class Product extends React.Component {
             <Col xs={12} md={12}>
               <div className="page-title">
                 <div className="float-left">
-                  <h1 className="title">Produk</h1>
+                  <h1 className="title">Penjual</h1>
                 </div>
               </div>
 
@@ -233,7 +233,7 @@ class Product extends React.Component {
                             <Row>
                               <Col sm="12">
                                 <DataTable
-                                  title="Semua Produk"
+                                  title="Semua Penjual"
                                   columns={this.state.columns}
                                   data={this.state.products}
                                 />
@@ -254,4 +254,4 @@ class Product extends React.Component {
   }
 }
 
-export default Product;
+export default SellerList;
