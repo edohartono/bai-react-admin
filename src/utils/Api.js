@@ -1,43 +1,35 @@
 import axios from "axios";
-// const BASE_URL = 'https://awsprod-api-b2bmarketplace.appclone.xyz/bai/'
+const BASE_URL = "https://awsprod-api-b2bmarketplace.appclone.xyz/bai/";
 const UPLOAD_URL = "https://awsprod-api-b2bmarketplace.appclone.xyz/bai/";
-const BASE_URL = "http://localhost:9000/";
+// const BASE_URL = "http://localhost:9000/";
 
 export const API = {
   async get(path = "", params = {}) {
-    path = `${BASE_URL}${path}`;
-    // console.log(params)
-    let headers = {};
-    headers["Content-Type"] = "application/json";
-    let auth = null;
-    headers["Authorization"] = localStorage.getItem("token");
-    return axios({
-      url: path,
-      headers: headers,
-      params: params,
-    })
-      .then((res) => {
-        // const dispatch = useDispatch()
-        // return dispatch({
-        //   type: 'IS_LOGGED_OUT'
-        // })
-        if (res.success) {
-          return {
+    return new Promise(async (resolve, reject) => {
+      path = `${BASE_URL}${path}`;
+      let headers = {};
+      headers["Content-Type"] = "application/json";
+      headers["Authorization"] = localStorage.getItem("token");
+      return axios({
+        url: path,
+        headers: headers,
+        params: params,
+      })
+        .then((res) => {
+          return resolve({
             success: true,
             result: res.data,
-          };
-        } else {
-          return res.data;
-        }
-      })
-      .catch((err) => {
-        // console.log('err', err)
-        return {
-          success: false,
-          error: err.response.data,
-          response: err.response,
-        };
-      });
+          });
+        })
+        .catch((err) => {
+          // console.log('err', err)
+          return reject({
+            success: false,
+            error: err.response.data,
+            response: err.response,
+          });
+        });
+    });
   },
 
   async post(path = "", body = {}) {
@@ -71,33 +63,31 @@ export const API = {
   },
 
   async patch(path = "", body = {}) {
-    path = `${BASE_URL}${path}`;
+    return new Promise(async (resolve, reject) => {
+      path = `${BASE_URL}${path}`;
 
-    let headers = {};
-    headers["Content-Type"] = "application/json";
-    let auth = "";
-    headers["Authorization"] = localStorage.getItem("token");
-    return axios
-      .patch(path, body, {
-        headers: headers,
-      })
-      .then((res) => {
-        if (res.success) {
-          return {
+      let headers = {};
+      headers["Content-Type"] = "application/json";
+      let auth = "";
+      headers["Authorization"] = localStorage.getItem("token");
+      return axios
+        .patch(path, body, {
+          headers: headers,
+        })
+        .then((res) => {
+          return resolve({
             success: true,
             result: res.data,
-          };
-        } else {
-          return res.data;
-        }
-      })
-      .catch((err) => {
-        return {
-          success: false,
-          error: err.response.data,
-          response: err.response,
-        };
-      });
+          });
+        })
+        .catch((err) => {
+          return reject({
+            success: false,
+            error: err.response.data,
+            response: err.response,
+          });
+        });
+    });
   },
 
   async delete(path = "", body = {}) {

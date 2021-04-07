@@ -60,6 +60,17 @@ import DetailVendor from "../views/ecommerce/Vendor/DetailVendor";
 import UserCategory from "../views/ecommerce/UserCategory/UserCategory";
 import UserAddCategory from "../views/ecommerce/UserCategory/UserAddCategory";
 import SellerList from "../views/ecommerce/Sellers/SellerList";
+import SellerDetail from "../views/ecommerce/Sellers/SellerDetail";
+import UserList from "../views/ecommerce/User/UserList";
+import CategoryBusiness from "../views/ecommerce/Category/CategoryBusiness";
+import CategoryBusinessEdit from "../views/ecommerce/Category/CategoryBusinessEdit";
+import CategoryBusinessLandingEdit from "../views/ecommerce/Category/CategoryBusinessLandingEdit";
+import BusinessProduct from "../views/ecommerce/Product/BusinessProduct";
+import OrderList from "../views/ecommerce/Order/OrderList";
+import OrderTodayList from "../views/ecommerce/Order/OrderTodayList";
+import DashboardAdmin from "../views/ecommerce/Dashboard/DashboardAdmin";
+import Banner from "../views/ecommerce/Settings/Banner";
+import BusinessInnovationGroup from "../views/ecommerce/Settings/BusinessInnovationGroup";
 
 var BASEDIR = "";
 
@@ -70,40 +81,44 @@ var dashRoutes = [
     name: "Dashboard",
     icon: "speedometer",
     badge: "",
-    component: null,
+    component: DashboardAdmin,
   },
 
   {
     path: "#",
-    name: "Penjual",
+    name: "User",
     icon: "energy",
     type: "dropdown",
     parentid: "products",
     child: [
       { path: BASEDIR + "/products", name: "Produk" },
       // { path: BASEDIR + "/add-product", name: "Add Product" },
-      { path: BASEDIR + "/edit-product", name: "Edit Produk" },
+      // { path: BASEDIR + "/products-unit", name: "Produk Bisnis Unit" },
       { path: BASEDIR + "/sellers", name: "Penjual" },
+      { path: BASEDIR + "/customers", name: "Customer" },
     ],
   },
+  { path: BASEDIR + "/dashboard", component: DashboardAdmin, type: "child" },
   { path: BASEDIR + "/products", component: Product, type: "child" },
   { path: BASEDIR + "/sellers", component: SellerList, type: "child" },
+  { path: BASEDIR + "/seller/view", component: SellerDetail, type: "child" },
+  { path: BASEDIR + "/customers", component: UserList, type: "child" },
   { path: BASEDIR + "/product/view", component: ViewProduct, type: "child" },
   { path: BASEDIR + "/add-product", component: AddProduct, type: "child" },
   { path: BASEDIR + "/edit-product", component: EditProduct, type: "child" },
 
-  {
-    path: "#",
-    name: "Customer",
-    icon: "people",
-    type: "dropdown",
-    parentid: "customers",
-    child: [
-      { path: BASEDIR + "/customers", name: "Customer" },
-      // { path: BASEDIR + "/add-customer", name: "Add Customer" },
-      // { path: BASEDIR + "/edit-customer", name: "Edit Customer" },
-    ],
-  },
+  // {
+  //   path: "#",
+  //   name: "Customer",
+  //   icon: "people",
+  //   type: "dropdown",
+  //   parentid: "customers",
+  //   child: [
+  //     { path: BASEDIR + "/customers", name: "Customer" },
+  //     // { path: BASEDIR + "/add-customer", name: "Add Customer" },
+  //     // { path: BASEDIR + "/edit-customer", name: "Edit Customer" },
+  //   ],
+  // },
   { path: BASEDIR + "/customers", component: Customer, type: "child" },
   { path: BASEDIR + "/add-customer", component: AddCustomer, type: "child" },
   { path: BASEDIR + "/edit-customer", component: EditCustomer, type: "child" },
@@ -120,20 +135,38 @@ var dashRoutes = [
     type: "dropdown",
     parentid: "bisnisunit",
     child: [
-      { path: BASEDIR + "/category", name: "Kategori" },
+      { path: BASEDIR + "/bisnis-kategori", name: "Kategori" },
       { path: BASEDIR + "/bisnis-produk", name: "Produk" },
       // { path: BASEDIR + "/bisnis-edit-kategori", name: "Edit Kategori" },
       { path: BASEDIR + "/bisnis-tambah-kategori", name: "Tambah Kategori" },
       { path: BASEDIR + "/bisnis-tambah-produk", name: "Tambah Produk" },
     ],
   },
-  { path: BASEDIR + "/category", component: Category, type: "child" },
+  {
+    path: BASEDIR + "/bisnis-kategori",
+    component: CategoryBusiness,
+    type: "child",
+  },
+  {
+    path: BASEDIR + "/bisnis-kategori/edit",
+    component: CategoryBusinessEdit,
+    type: "child",
+  },
+  {
+    path: BASEDIR + "/bisnis-kategori-landing/edit",
+    component: CategoryBusinessLandingEdit,
+    type: "child",
+  },
   {
     path: BASEDIR + "/bisnis-tambah-kategori",
     component: AddCategory,
     type: "child",
   },
-  { path: BASEDIR + "/bisnis-produk", component: BisnisProduk, type: "child" },
+  {
+    path: BASEDIR + "/bisnis-produk",
+    component: BusinessProduct,
+    type: "child",
+  },
   {
     path: BASEDIR + "/bisnis-tambah-produk",
     component: AddProduct,
@@ -145,78 +178,78 @@ var dashRoutes = [
     type: "child",
   },
 
-  {
-    path: "#",
-    name: "Kategori",
-    icon: "folder-alt",
-    type: "dropdown",
-    parentid: "kategori",
-    child: [
-      { path: BASEDIR + "/user-category", name: "Kategori" },
-      // { path: BASEDIR + "/user-produk", name: "Produk" },
-      // { path: BASEDIR + "/bisnis-edit-kategori", name: "Edit Kategori" },
-      { path: BASEDIR + "/user-tambah-kategori", name: "Tambah Kategori" },
-      // { path: BASEDIR + "/user-tambah-produk", name: "Tambah Produk" },
-    ],
-  },
-  { path: BASEDIR + "/user-category", component: UserCategory, type: "child" },
-  {
-    path: BASEDIR + "/user-tambah-kategori",
-    component: UserAddCategory,
-    type: "child",
-  },
+  // {
+  //   path: "#",
+  //   name: "Kategori",
+  //   icon: "folder-alt",
+  //   type: "dropdown",
+  //   parentid: "kategori",
+  //   child: [
+  //     { path: BASEDIR + "/user-category", name: "Kategori" },
+  //     // { path: BASEDIR + "/user-produk", name: "Produk" },
+  //     // { path: BASEDIR + "/bisnis-edit-kategori", name: "Edit Kategori" },
+  //     { path: BASEDIR + "/user-tambah-kategori", name: "Tambah Kategori" },
+  //     // { path: BASEDIR + "/user-tambah-produk", name: "Tambah Produk" },
+  //   ],
+  // },
+  // { path: BASEDIR + "/user-category", component: UserCategory, type: "child" },
+  // {
+  //   path: BASEDIR + "/user-tambah-kategori",
+  //   component: UserAddCategory,
+  //   type: "child",
+  // },
   // { path: BASEDIR + "/bisnis-produk", component: BisnisProduk, type: "child" },
-  {
-    path: BASEDIR + "/user-tambah-produk",
-    component: AddProduct,
-    type: "child",
-  },
-  {
-    path: BASEDIR + "/user-edit-kategori",
-    component: EditCategory,
-    type: "child",
-  },
+  // {
+  //   path: BASEDIR + "/user-tambah-produk",
+  //   component: AddProduct,
+  //   type: "child",
+  // },
+  // {
+  //   path: BASEDIR + "/user-edit-kategori",
+  //   component: EditCategory,
+  //   type: "child",
+  // },
 
-  {
-    path: "#",
-    name: "Seller",
-    icon: "user",
-    type: "dropdown",
-    parentid: "vendors",
-    child: [
-      { path: BASEDIR + "/vendors", name: "Penjual" },
-      // { path: BASEDIR + "/add-vendor", name: "Add Vendor" },
-      // { path: BASEDIR + "/edit-vendor", name: "Edit Vendor" },
-      { path: BASEDIR + "/vendor-product", name: "Produk" },
-    ],
-  },
-  { path: BASEDIR + "/vendors", component: Vendor, type: "child" },
-  { path: BASEDIR + "/detail-vendor", component: DetailVendor, type: "child" },
-  // { path: BASEDIR + "/add-vendor", component: AddVendor, type: "child" },
-  { path: BASEDIR + "/edit-vendor", component: EditVendor, type: "child" },
-  {
-    path: BASEDIR + "/vendor-product",
-    component: VendorProduct,
-    type: "child",
-  },
+  // {
+  //   path: "#",
+  //   name: "Seller",
+  //   icon: "user",
+  //   type: "dropdown",
+  //   parentid: "vendors",
+  //   child: [
+  //     { path: BASEDIR + "/vendors", name: "Penjual" },
+  //     // { path: BASEDIR + "/add-vendor", name: "Add Vendor" },
+  //     // { path: BASEDIR + "/edit-vendor", name: "Edit Vendor" },
+  //     { path: BASEDIR + "/vendor-product", name: "Produk" },
+  //   ],
+  // },
+  // { path: BASEDIR + "/vendors", component: Vendor, type: "child" },
+  // { path: BASEDIR + "/detail-vendor", component: DetailVendor, type: "child" },
+  // // { path: BASEDIR + "/add-vendor", component: AddVendor, type: "child" },
+  // { path: BASEDIR + "/edit-vendor", component: EditVendor, type: "child" },
+  // {
+  //   path: BASEDIR + "/vendor-product",
+  //   component: VendorProduct,
+  //   type: "child",
+  // },
 
-  {
-    path: "#",
-    name: "Invoice",
-    icon: "wallet",
-    type: "dropdown",
-    parentid: "billing",
-    child: [
-      { path: BASEDIR + "/invoices", name: "Invoices" },
-      // { path: BASEDIR + "/add-invoice", name: "Add Invoice" },
-      // { path: BASEDIR + "/edit-invoice", name: "Edit Invoice" },
-      // { path: BASEDIR + "/invoice", name: "View Invoice" },
-    ],
-  },
-  { path: BASEDIR + "/invoices", component: Invoice, type: "child" },
-  { path: BASEDIR + "/add-invoice", component: AddInvoice, type: "child" },
-  { path: BASEDIR + "/edit-invoice", component: EditInvoice, type: "child" },
-  { path: BASEDIR + "/invoice", component: EcommerceInvoice, type: "child" },
+  // {
+  //   path: "#",
+  //   name: "Invoice",
+  //   icon: "wallet",
+  //   type: "dropdown",
+  //   parentid: "billing",
+  //   child: [
+  //     { path: BASEDIR + "/invoices", name: "Invoices" },
+  //     // { path: BASEDIR + "/add-invoice", name: "Add Invoice" },
+  //     // { path: BASEDIR + "/edit-invoice", name: "Edit Invoice" },
+  //     // { path: BASEDIR + "/invoice", name: "View Invoice" },
+  //   ],
+  // },
+  // { path: BASEDIR + "/invoices", component: Invoice, type: "child" },
+  // { path: BASEDIR + "/add-invoice", component: AddInvoice, type: "child" },
+  // { path: BASEDIR + "/edit-invoice", component: EditInvoice, type: "child" },
+  // { path: BASEDIR + "/invoice", component: EcommerceInvoice, type: "child" },
 
   {
     path: "#",
@@ -225,12 +258,14 @@ var dashRoutes = [
     type: "dropdown",
     parentid: "orders",
     child: [
-      { path: BASEDIR + "/orders", name: "Orders" },
+      { path: BASEDIR + "/orders", name: "Semua Order" },
+      { path: BASEDIR + "/orders/today", name: "Order Hari Ini" },
       // { path: BASEDIR + "/add-order", name: "Add Order" },
       // { path: BASEDIR + "/edit-order", name: "Edit Order" },
     ],
   },
-  { path: BASEDIR + "/orders", component: Order, type: "child" },
+  { path: BASEDIR + "/orders", component: OrderList, type: "child" },
+  { path: BASEDIR + "/orders/today", component: OrderTodayList, type: "child" },
   { path: BASEDIR + "/add-order", component: AddOrder, type: "child" },
   { path: BASEDIR + "/edit-order", component: EditOrder, type: "child" },
 
@@ -309,12 +344,32 @@ var dashRoutes = [
   // { path: BASEDIR + "/mail-inbox", component: EcommerceMailinbox, type: "child" },
   // { path: BASEDIR + "/mail-compose", component: EcommerceMailcompose, type: "child" },
   // { path: BASEDIR + "/mail-view", component: EcommerceMailview, type: "child" },
-
+  // {
+  //   path: BASEDIR + "/pages",
+  //   name: "Halaman",
+  //   icon: "settings",
+  //   component: null,
+  // },
   {
     path: BASEDIR + "/settings",
     name: "Pengaturan",
     icon: "settings",
     component: null,
+    type: "dropdown",
+    child: [
+      { path: BASEDIR + "/setting/banner", name: "Banner" },
+      {
+        path: BASEDIR + "/setting/business-group",
+        name: "Business Innovation Group",
+      },
+    ],
+  },
+
+  { path: BASEDIR + "/setting/banner", component: Banner, type: "child" },
+  {
+    path: BASEDIR + "/setting/business-group",
+    component: BusinessInnovationGroup,
+    type: "child",
   },
 
   // {

@@ -12,6 +12,23 @@ thead.thead-default {
   padding: 1em 2em !important;
 }
 
+#dashboard {
+  .total {
+    font-weight: bold;
+    color: #067afb;
+    font-size: 2.5em;
+    text-align: center;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .card-stat {
+    h4 {
+      text-align: center;
+    }
+  }
+}
+
 #product-single {
   .img-responsive {
     width: 100%;
@@ -22,5 +39,30 @@ thead.thead-default {
     justify-content: center;
     margin-top: 1em;
     width: 90%;
+  }
+}
+
+#seller-list {
+  .rdt_TableCol {
+    text-align: center;
+    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-right: 1.5em !important;
+  }
+
+  .rdt_TableCell {
+    display: flex;
+    justify-content: center;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+#seller-single {
+  .form-group {
+    label {
+      font-weight: bold;
+    }
   }
 }

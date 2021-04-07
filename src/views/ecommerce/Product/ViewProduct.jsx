@@ -31,9 +31,7 @@ class ViewProduct extends Component {
     this.setState({ submit: true });
     API.get(`product/id`, { id: this.state.id })
       .then((res) => {
-        if (res.success) {
-          this.setState({ product: res.result, submit: false });
-        }
+        this.setState({ product: res.result.result, submit: false });
       })
       .catch(() => this.setState({ submit: false }));
   }
@@ -71,44 +69,53 @@ class ViewProduct extends Component {
                       <Row>
                         <Col md={5}>
                           <div className="img-responsive">
-                            <img src={imageURL + product.images[0]} />
+                            <img
+                              src={
+                                Array.isArray(product.images)
+                                  ? imageURL + product.images[0]
+                                  : null
+                              }
+                            />
                           </div>
 
-                          <div className="btn-actions">
-                            {product.active === "N" && (
-                              <Button
-                                className="btn-corner"
-                                size="sm"
-                                color="warning"
-                                onClick={() => this.editProduct("Y")}
-                                disabled={this.state.submit}
-                              >
-                                Verifikasi Produk
-                              </Button>
+                          {this.state.product &&
+                            this.state.product.seller_id !== 1 && (
+                              <div className="btn-actions">
+                                {product.active === "N" && (
+                                  <Button
+                                    className="btn-corner"
+                                    size="sm"
+                                    color="warning"
+                                    onClick={() => this.editProduct("Y")}
+                                    disabled={this.state.submit}
+                                  >
+                                    Verifikasi Produk
+                                  </Button>
+                                )}
+                                {product.active !== "B" && (
+                                  <Button
+                                    className="btn-corner"
+                                    size="sm"
+                                    color="danger"
+                                    onClick={() => this.editProduct("B")}
+                                    disabled={this.state.submit}
+                                  >
+                                    Banned Produk
+                                  </Button>
+                                )}
+                                {product.active === "B" && (
+                                  <Button
+                                    className="btn-corner"
+                                    size="sm"
+                                    color="success"
+                                    onClick={() => this.editProduct("Y")}
+                                    disabled={this.state.submit}
+                                  >
+                                    Unbanned Produk
+                                  </Button>
+                                )}
+                              </div>
                             )}
-                            {product.active !== "B" && (
-                              <Button
-                                className="btn-corner"
-                                size="sm"
-                                color="danger"
-                                onClick={() => this.editProduct("B")}
-                                disabled={this.state.submit}
-                              >
-                                Banned Produk
-                              </Button>
-                            )}
-                            {product.active === "B" && (
-                              <Button
-                                className="btn-corner"
-                                size="sm"
-                                color="success"
-                                onClick={() => this.editProduct("Y")}
-                                disabled={this.state.submit}
-                              >
-                                Unbanned Produk
-                              </Button>
-                            )}
-                          </div>
                         </Col>
                         <Col md={7}>
                           <div className="col-group">

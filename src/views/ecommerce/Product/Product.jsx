@@ -166,13 +166,8 @@ class Product extends React.Component {
   }
 
   async getData() {
-    let products = await this.getProduct();
-    this.setState({ products: products.result.products });
-  }
-
-  getProduct() {
-    return API.get("products/all", {}).then((res) => {
-      return res;
+    API.get("products/all", { type: "U" }).then((res) => {
+      this.setState({ products: res.result.result.products });
     });
   }
 

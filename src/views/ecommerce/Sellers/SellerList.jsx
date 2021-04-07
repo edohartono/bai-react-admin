@@ -24,6 +24,8 @@ import { API } from "../../../utils/Api";
 import { imageURL } from "../../../config";
 import { IDR_Format } from "../../../utils/Currency";
 import DataTable from "react-data-table-component";
+import Swal from "sweetalert2";
+import moment from "moment";
 //var ps;
 
 class SellerList extends React.Component {
@@ -32,16 +34,16 @@ class SellerList extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       activeTab: "1",
-      products: [],
+      sellers: [],
       submit: false,
       columns: [
         {
-          name: "Nama Produk",
-          width: "30%",
+          name: "Nama Penjual",
+          width: "25%",
           cell: (row) => (
-            <div className="d-flex flex-row my-3 align-content-center align-items-center">
+            <div className="d-flex flex-row my-3 align-content-start align-items-start w-100">
               <img
-                src={imageURL + row.images[0]}
+                src={imageURL + row.display_picture}
                 width="60em"
                 height="60em"
                 style={{ borderRadius: "50%" }}
@@ -51,34 +53,161 @@ class SellerList extends React.Component {
           ),
         },
         {
-          name: "Kategori",
-          selector: "category",
+          name: "Email",
+          selector: "email",
         },
         {
-          name: "Penjual",
+          name: "Perusahaan",
           selector: "company",
         },
         {
-          name: "Harga",
+          name: "No HP",
+          selector: "phone",
+        },
+        {
+          name: "Bergabung",
           cell: (row) => (
-            <div>
-              <div className="font-weight-bold">
-                IDR {IDR_Format(row.price)}
-              </div>
-            </div>
+            <div>{moment(row.created_at).format("D MMMM YYYY")}</div>
           ),
         },
         {
           name: "Status",
+          width: "10%",
           cell: (row) => (
-            <>
+            <div className="d-flex justify-content-center w-100">
               {row.active === "Y" && <Badge color="success">Aktif</Badge>}
-              {row.active === "N" && (
-                <Badge color="warning">Menunggu Verifikasi</Badge>
-              )}
-              {row.active === "B" && <Badge color="danger">Banned</Badge>}
-            </>
+              {row.active === "N" && <Badge color="success">Tidak Aktif</Badge>}
+            </div>
           ),
+        },
+        {
+          name: "SIUP",
+          width: "5em",
+          cell: (row) => {
+            let color = {
+              V: {
+                class: "text-success",
+                text: "Terverifikasi",
+                icon: "check-square",
+              },
+              N: {
+                class: "text-dark",
+                text: "Dokumen belum diupload",
+                icon: "times-rectangle",
+              },
+              R: {
+                class: "text-danger",
+                text: "Dokumen ditolak",
+                icon: "times-rectangle",
+              },
+              W: {
+                class: "text-warning",
+                text: "Menunggu verifikasi",
+                icon: "question-circle",
+              },
+            };
+
+            return (
+              <div className="justify-content-center d-flex w-100">
+                <i
+                  style={{ fontSize: "1.5em" }}
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title={color[row.siup_status].text}
+                  className={`fa fa-${color[row.siup_status].icon} ${
+                    color[row.siup_status].class
+                  }`}
+                  aria-hidden="true"
+                ></i>
+              </div>
+            );
+          },
+        },
+        {
+          name: "NPWP",
+          width: "5em",
+          cell: (row) => {
+            let color = {
+              V: {
+                class: "text-success",
+                text: "Terverifikasi",
+                icon: "check-square",
+              },
+              N: {
+                class: "text-dark",
+                text: "Dokumen belum diupload",
+                icon: "times-rectangle",
+              },
+              R: {
+                class: "text-danger",
+                text: "Dokumen ditolak",
+                icon: "times-rectangle",
+              },
+              W: {
+                class: "text-warning",
+                text: "Menunggu verifikasi",
+                icon: "question-circle",
+              },
+            };
+
+            return (
+              <div className="justify-content-center d-flex w-100">
+                <i
+                  style={{ fontSize: "1.5em" }}
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title={color[row.npwp_status].text}
+                  className={`fa fa-${color[row.npwp_status].icon} ${
+                    color[row.npwp_status].class
+                  }`}
+                  aria-hidden="true"
+                ></i>
+              </div>
+            );
+          },
+        },
+        {
+          name: "KTP",
+          width: "5em",
+          cell: (row) => {
+            let color = {
+              V: {
+                class: "text-success",
+                text: "Terverifikasi",
+                icon: "check-square",
+              },
+              N: {
+                class: "text-dark",
+                text: "Dokumen belum diupload",
+                icon: "times-rectangle",
+              },
+              R: {
+                class: "text-danger",
+                text: "Dokumen ditolak",
+                icon: "times-rectangle",
+              },
+              W: {
+                class: "text-warning",
+                text: "Menunggu verifikasi",
+                icon: "question-circle",
+              },
+            };
+
+            return (
+              <div className="justify-content-center d-flex w-100">
+                <i
+                  style={{ fontSize: "1.5em" }}
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title={color[row.ktp_status].text}
+                  className={`fa fa-${color[row.ktp_status].icon} ${
+                    color[row.ktp_status].class
+                  }`}
+                  aria-hidden="true"
+                ></i>
+              </div>
+            );
+          },
         },
         {
           name: "#",
@@ -89,44 +218,11 @@ class SellerList extends React.Component {
                 size="sm"
                 color="primary"
                 onClick={() => {
-                  this.props.history.push(`/product/view?id=${row.id}`);
+                  this.props.history.push(`/seller/view?id=${row.id}`);
                 }}
               >
                 Lihat
               </Button>
-              {row.active !== "B" && (
-                <Button
-                  className="btn-corner my-1"
-                  size="sm"
-                  color="danger"
-                  onClick={() => this.update(row.id, "B")}
-                  disabled={this.state.submit}
-                >
-                  Banned
-                </Button>
-              )}
-              {row.active === "N" && (
-                <Button
-                  className="btn-corner my-1"
-                  size="sm"
-                  color="warning"
-                  onClick={() => this.update(row.id, "Y")}
-                  disabled={this.state.submit}
-                >
-                  Verifikasi
-                </Button>
-              )}
-              {row.active === "B" && (
-                <Button
-                  className="btn-corner my-1"
-                  size="sm"
-                  color="success"
-                  onClick={() => this.update(row.id, "Y")}
-                  disabled={this.state.submit}
-                >
-                  Unbanned
-                </Button>
-              )}
             </div>
           ),
         },
@@ -166,20 +262,24 @@ class SellerList extends React.Component {
   }
 
   async getData() {
-    let products = await this.getProduct();
-    // this.setState({ products: products.result.products });
-  }
-
-  getProduct() {
-    return API.get("seller/all", {}).then((res) => {
-      return res;
-    });
+    API.get("seller/all", {})
+      .then((res) => {
+        this.setState({ sellers: res.result.result });
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Gagal",
+          text: err.error.error_message ? err.error.error_message : "",
+        });
+      });
   }
 
   render() {
+    // return null;
+    const { sellers } = this.state;
     return (
       <div>
-        <div className="content">
+        <div className="content" id="seller-list">
           <Row>
             <Col xs={12} md={12}>
               <div className="page-title">
@@ -235,7 +335,7 @@ class SellerList extends React.Component {
                                 <DataTable
                                   title="Semua Penjual"
                                   columns={this.state.columns}
-                                  data={this.state.products}
+                                  data={this.state.sellers}
                                 />
                               </Col>
                             </Row>
