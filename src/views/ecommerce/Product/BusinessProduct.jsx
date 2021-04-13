@@ -97,7 +97,7 @@ class BusinessProduct extends React.Component {
               >
                 Edit
               </Button>
-              {row.active !== "B" && (
+              {/* {row.active !== "B" && (
                 <Button
                   className="btn-corner my-1"
                   size="sm"
@@ -107,8 +107,8 @@ class BusinessProduct extends React.Component {
                 >
                   Banned
                 </Button>
-              )}
-              {row.active === "N" && (
+              )} */}
+              {/* {row.active === "N" && (
                 <Button
                   className="btn-corner my-1"
                   size="sm"
@@ -118,8 +118,8 @@ class BusinessProduct extends React.Component {
                 >
                   Verifikasi
                 </Button>
-              )}
-              {row.active === "B" && (
+              )} */}
+              {/* {row.active === "B" && (
                 <Button
                   className="btn-corner my-1"
                   size="sm"
@@ -129,7 +129,7 @@ class BusinessProduct extends React.Component {
                 >
                   Unbanned
                 </Button>
-              )}
+              )} */}
             </div>
           ),
         },

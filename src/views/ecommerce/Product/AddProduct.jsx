@@ -50,12 +50,13 @@ class AddProduct extends React.Component {
     });
   };
   getProduct(url) {
-    return API.get("products", { url: url }).then((res) => {
+    return API.get("products/guest", { url: url }).then((res) => {
       return res;
     });
   }
 
   onSubmit = async () => {
+    this.setState({ submit: true });
     let {
       nama,
       deskripsi,
@@ -134,9 +135,15 @@ class AddProduct extends React.Component {
     let url = nama.replace(/ /g, "-").toLowerCase();
     let urlcheck = await this.getProduct(url);
     let profile = JSON.parse(localStorage.getItem("profile")).id;
-    if (!("result" in urlcheck)) url += `-${profile}`;
 
-    let submit = await API.post("products/add", {
+    if (
+      Array.isArray(urlcheck.result.result.products) &&
+      urlcheck.result.result.products.length > 0
+    ) {
+      url += `-${profile}`;
+    }
+
+    API.post("products/add", {
       name: nama,
       url: url,
       images: gambarList,
@@ -147,23 +154,25 @@ class AddProduct extends React.Component {
       weight: berat,
       stok: stok,
       active: "Y",
-    });
+      type: "Q",
+    })
+      .then(() => {
+        Swal.fire({
+          title: "Produk Berhasil Ditambahkan",
+          icon: "success",
+        });
 
-    if (submit.success) {
-      Swal.fire({
-        title: "Produk Berhasil Ditambahkan",
-        icon: "success",
+        this.setState({ submit: false });
+        this.props.history.goBack();
+      })
+      .catch((err) => {
+        this.setState({ submit: false });
+        Swal.fire({
+          title: "Produk gagal ditambahkan",
+          icon: "error",
+          text: err.error.error_message ? err.error.error_message : "",
+        });
       });
-
-      return { success: true };
-    } else {
-      Swal.fire({
-        title: "Produk gagal ditambahkan",
-        icon: "error",
-        text: submit.error.message,
-      });
-      return { success: true };
-    }
   };
 
   render() {
@@ -323,18 +332,12 @@ class AddProduct extends React.Component {
                                   }
                                 />
                               </div>
-
-                              {/* <div className="form-group col-md-12">
-                                                                <label htmlFor="inputname4151">Vendor</label>
-                                                                <input type="text" className="form-control" id="inputname4151" placeholder="" />
-                                                            </div> */}
-
-                              {/* <div className="form-group col-md-12">
-                                                                <Label htmlFor="exampleText">Brief</Label>
-                                                                <Input type="textarea" name="text" id="exampleText" />
-                                                            </div> */}
                             </div>
-                            <button type="submit" className="btn btn-primary">
+                            <button
+                              type="submit"
+                              className="btn btn-primary"
+                              disabled={this.state.submit}
+                            >
                               Publish
                             </button>
                           </form>
