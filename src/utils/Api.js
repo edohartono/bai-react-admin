@@ -1,7 +1,7 @@
 import axios from "axios";
-const BASE_URL = "https://awsprod-api-b2bmarketplace.appclone.xyz/bai/";
+// const BASE_URL = "https://awsprod-api-b2bmarketplace.appclone.xyz/bai/";
 const UPLOAD_URL = "https://awsprod-api-b2bmarketplace.appclone.xyz/bai/";
-// const BASE_URL = "http://172.20.10.2:9000/";
+const BASE_URL = "http://172.20.10.2:9000/";
 
 export const API = {
   async get(path = "", params = {}) {

@@ -77,6 +77,7 @@ import UserEdit from "../views/ecommerce/User/UserEdit";
 import SellerAdd from "../views/ecommerce/Sellers/SellerAdd";
 import BusinessProductEdit from "../views/ecommerce/Product/BusinessProductEdit";
 import ChangePassword from "../views/ecommerce/Settings/ChangePassword";
+import TransactionList from "../views/ecommerce/Transactions/TransactionList";
 
 var BASEDIR = "";
 
@@ -380,6 +381,12 @@ var dashRoutes = [
         name: "Transaksi Hari Ini",
       },
     ],
+  },
+
+  {
+    path: BASEDIR + "/transaksi/all",
+    component: TransactionList,
+    type: "child",
   },
   {
     path: BASEDIR + "/settings",
