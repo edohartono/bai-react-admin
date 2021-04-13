@@ -74,6 +74,7 @@ class Login extends React.Component {
                             type="text"
                             name="un"
                             id="user_name"
+                            placeholder="Email"
                             onChange={(e) =>
                               this.setState({ email: e.target.value })
                             }
@@ -89,6 +90,7 @@ class Login extends React.Component {
                             type="password"
                             name="pwd"
                             id="user_pass"
+                            placeholder="Password"
                             className="input"
                             onChange={(e) =>
                               this.setState({ password: e.target.value })
@@ -105,6 +107,7 @@ class Login extends React.Component {
                           id="wp-submit"
                           className="btn btn-accent btn-block"
                           value="Sign In"
+                          placeholder="Password"
                           onClick={this.onLogin}
                         />
                       </p>

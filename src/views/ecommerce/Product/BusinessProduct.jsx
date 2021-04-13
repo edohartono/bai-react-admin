@@ -66,6 +66,7 @@ class BusinessProduct extends React.Component {
           cell: (row) => (
             <>
               {row.active === "Y" && <Badge color="success">Aktif</Badge>}
+              {row.active === "N" && <Badge color="dark">Tidak Aktif</Badge>}
               {/* {row.active === "N" && (
                 <Badge color="warning">Menunggu Verifikasi</Badge>
               )} */}
@@ -76,9 +77,9 @@ class BusinessProduct extends React.Component {
         {
           name: "#",
           cell: (row) => (
-            <div className="d-flex flex-column my-1">
+            <div className="d-flex flex-column w-100 my-1">
               <Button
-                className="btn-corner my-1"
+                className="btn-corner my-1 w-100"
                 size="sm"
                 color="primary"
                 onClick={() => {
@@ -88,7 +89,7 @@ class BusinessProduct extends React.Component {
                 Lihat
               </Button>
               <Button
-                className="btn-corner my-1"
+                className="btn-corner my-1 w-100"
                 size="sm"
                 color="warning"
                 onClick={() => {
@@ -97,28 +98,28 @@ class BusinessProduct extends React.Component {
               >
                 Edit
               </Button>
-              {/* {row.active !== "B" && (
+              {row.active !== "N" && (
                 <Button
-                  className="btn-corner my-1"
+                  className="btn-corner my-1 w-100"
                   size="sm"
                   color="danger"
-                  onClick={() => this.update(row.id, "B")}
+                  onClick={() => this.update(row.id, "N")}
                   disabled={this.state.submit}
                 >
-                  Banned
+                  Nonaktifkan
                 </Button>
-              )} */}
-              {/* {row.active === "N" && (
+              )}
+              {row.active === "N" && (
                 <Button
-                  className="btn-corner my-1"
+                  className="btn-corner my-1 w-100"
                   size="sm"
-                  color="warning"
+                  color="success"
                   onClick={() => this.update(row.id, "Y")}
                   disabled={this.state.submit}
                 >
-                  Verifikasi
+                  Aktifkan
                 </Button>
-              )} */}
+              )}
               {/* {row.active === "B" && (
                 <Button
                   className="btn-corner my-1"
@@ -193,24 +194,6 @@ class BusinessProduct extends React.Component {
                       {/* <div className="input-group primary">
                                                 <input type="text" className="form-control search-page-input" placeholder="Enter your search" />
                                             </div> */}
-                    </div>
-
-                    <div className="col-md-4 col-sm-4 col-4 d-block">
-                      <FormGroup>
-                        <Input type="select" name="select" id="exampleSelect">
-                          <option>Sort By</option>
-                          <option>Latest</option>
-                          <option>Most viewed</option>
-                          <option>Most Rated</option>
-                          <option>Trending</option>
-                        </Input>
-                      </FormGroup>
-                    </div>
-
-                    <div className="col-md-2 col-sm-3 col-4 d-block">
-                      <button type="button" className="btn btn-primary">
-                        Search
-                      </button>
                     </div>
 
                     <div className="clearfix"></div>

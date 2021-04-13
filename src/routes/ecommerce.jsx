@@ -76,6 +76,7 @@ import UserDetail from "../views/ecommerce/User/UserDetail";
 import UserEdit from "../views/ecommerce/User/UserEdit";
 import SellerAdd from "../views/ecommerce/Sellers/SellerAdd";
 import BusinessProductEdit from "../views/ecommerce/Product/BusinessProductEdit";
+import ChangePassword from "../views/ecommerce/Settings/ChangePassword";
 
 var BASEDIR = "";
 
@@ -396,6 +397,11 @@ var dashRoutes = [
   },
 
   { path: BASEDIR + "/setting/banner", component: Banner, type: "child" },
+  {
+    path: BASEDIR + "/setting/change-password",
+    component: ChangePassword,
+    type: "child",
+  },
   {
     path: BASEDIR + "/setting/business-group",
     component: BusinessInnovationGroup,
