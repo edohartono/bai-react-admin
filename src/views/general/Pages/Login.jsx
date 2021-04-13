@@ -21,20 +21,26 @@ class Login extends React.Component {
   async onLogin(e) {
     e.preventDefault();
     this.setState({ login: true });
-    let login = await API.post("login/admin", {
+    API.post("login/admin", {
       email: this.state.email,
       password: this.state.password,
-    });
-    if (login.success) {
-      Swal.fire("Login berhasil", "", "success");
-      this.setState({ login: false });
-      localStorage.setItem("token", login.result.token);
-      localStorage.setItem("profile", JSON.stringify(login.result.profile));
-      window.location = "/dashboard";
-    } else {
-      this.setState({ login: false });
-      Swal.fire("Login gagal", "Username atau password salah", "error");
-    }
+    })
+      .then((res) => {
+        // alert(JSON.stringify(res.result));
+
+        Swal.fire("Login berhasil", "", "success");
+        this.setState({ login: false });
+        localStorage.setItem("token", res.result.result.token);
+        localStorage.setItem(
+          "profile",
+          JSON.stringify(res.result.result.profile)
+        );
+        this.props.history.replace("/dashboard");
+      })
+      .catch((err) => {
+        this.setState({ login: false });
+        Swal.fire("Login gagal", "Username atau password salah", "error");
+      });
   }
 
   render() {

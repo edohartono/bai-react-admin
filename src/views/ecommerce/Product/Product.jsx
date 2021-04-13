@@ -34,6 +34,13 @@ class Product extends React.Component {
       activeTab: "1",
       products: [],
       submit: false,
+      filter: {
+        search: "",
+        limit: 10000,
+        offset: 0,
+        active: "",
+        type: "U",
+      },
       columns: [
         {
           name: "Nama Produk",
@@ -135,6 +142,7 @@ class Product extends React.Component {
 
     this.update = this.update.bind(this);
     this.getData = this.getData.bind(this);
+    this.setFilter = this.setFilter.bind(this);
   }
   toggle(tab) {
     if (this.state.activeTab !== tab) {
@@ -166,9 +174,21 @@ class Product extends React.Component {
   }
 
   async getData() {
-    API.get("products/all", { type: "U" }).then((res) => {
+    API.get("products/all", this.state.filter).then((res) => {
       this.setState({ products: res.result.result.products });
     });
+  }
+
+  setFilter(key, value) {
+    this.setState(
+      (prev) => ({
+        filter: {
+          ...prev.filter,
+          [key]: value,
+        },
+      }),
+      () => this.getData()
+    );
   }
 
   render() {
@@ -186,33 +206,6 @@ class Product extends React.Component {
               <div className="col-xl-12">
                 <div className="content-body">
                   <div className="row">
-                    <div className="col-md-6 col-sm-5 col-4 d-none">
-                      {/* <div className="input-group primary">
-                                                <input type="text" className="form-control search-page-input" placeholder="Enter your search" />
-                                            </div> */}
-                    </div>
-
-                    <div className="col-md-4 col-sm-4 col-4 d-block">
-                      <FormGroup>
-                        <Input type="select" name="select" id="exampleSelect">
-                          <option>Sort By</option>
-                          <option>Latest</option>
-                          <option>Most viewed</option>
-                          <option>Most Rated</option>
-                          <option>Trending</option>
-                        </Input>
-                      </FormGroup>
-                    </div>
-
-                    <div className="col-md-2 col-sm-3 col-4 d-block">
-                      <button type="button" className="btn btn-primary">
-                        Search
-                      </button>
-                    </div>
-
-                    <div className="clearfix"></div>
-                    <br />
-
                     <div className="col-lg-12 search_data">
                       <div>
                         <Nav
@@ -226,6 +219,56 @@ class Product extends React.Component {
                         >
                           <TabPane tabId="1">
                             <Row>
+                              <Col sm={12}>
+                                <Row>
+                                  <div className="col-md-4 col-sm-4 col-4">
+                                    <FormGroup>
+                                      <Input
+                                        type="select"
+                                        name="select"
+                                        id="exampleSelect"
+                                        onChange={(e) =>
+                                          this.setFilter(
+                                            "active",
+                                            e.target.value
+                                          )
+                                        }
+                                      >
+                                        <option value="">Semua Status</option>
+                                        <option value="Y">Aktif</option>
+                                        <option value="N">Moderasi</option>
+                                        <option value="B">Banned</option>
+                                      </Input>
+                                    </FormGroup>
+                                  </div>
+                                  <div className="col-md-4 col-sm-4 col-4">
+                                    <FormGroup>
+                                      <Input
+                                        type="text"
+                                        name="search"
+                                        id="exampleSelect"
+                                        placeholder="Cari Produk"
+                                        onChange={(e) =>
+                                          this.setFilter(
+                                            "search",
+                                            e.target.value
+                                          )
+                                        }
+                                      />
+                                    </FormGroup>
+                                  </div>
+
+                                  <div className="col-md-2 col-sm-3 col-4">
+                                    <button
+                                      type="button"
+                                      className="btn btn-primary"
+                                      onClick={() => this.getData()}
+                                    >
+                                      Search
+                                    </button>
+                                  </div>
+                                </Row>
+                              </Col>
                               <Col sm="12">
                                 <DataTable
                                   title="Semua Produk"

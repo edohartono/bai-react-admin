@@ -87,6 +87,16 @@ class BusinessProduct extends React.Component {
               >
                 Lihat
               </Button>
+              <Button
+                className="btn-corner my-1"
+                size="sm"
+                color="warning"
+                onClick={() => {
+                  this.props.history.push(`/bisnis-edit-produk?id=${row.id}`);
+                }}
+              >
+                Edit
+              </Button>
               {row.active !== "B" && (
                 <Button
                   className="btn-corner my-1"

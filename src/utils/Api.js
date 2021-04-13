@@ -1,7 +1,7 @@
 import axios from "axios";
 const BASE_URL = "https://awsprod-api-b2bmarketplace.appclone.xyz/bai/";
 const UPLOAD_URL = "https://awsprod-api-b2bmarketplace.appclone.xyz/bai/";
-// const BASE_URL = "http://localhost:9000/";
+// const BASE_URL = "http://172.20.10.2:9000/";
 
 export const API = {
   async get(path = "", params = {}) {
@@ -33,33 +33,31 @@ export const API = {
   },
 
   async post(path = "", body = {}) {
-    path = `${BASE_URL}${path}`;
+    return new Promise(async (resolve, reject) => {
+      path = `${BASE_URL}${path}`;
 
-    let headers = {};
-    headers["Content-Type"] = "application/json";
-    let auth = "";
-    headers["Authorization"] = localStorage.getItem("token");
-    return axios
-      .post(path, body, {
-        headers: headers,
-      })
-      .then((res) => {
-        if (res.success) {
-          return {
+      let headers = {};
+      headers["Content-Type"] = "application/json";
+      let auth = "";
+      headers["Authorization"] = localStorage.getItem("token");
+      return axios
+        .post(path, body, {
+          headers: headers,
+        })
+        .then((res) => {
+          return resolve({
             success: true,
             result: res.data,
-          };
-        } else {
-          return res.data;
-        }
-      })
-      .catch((err) => {
-        return {
-          success: false,
-          error: err.response.data,
-          response: err.response,
-        };
-      });
+          });
+        })
+        .catch((err) => {
+          return reject({
+            success: false,
+            error: err.response.data,
+            response: err.response,
+          });
+        });
+    });
   },
 
   async patch(path = "", body = {}) {

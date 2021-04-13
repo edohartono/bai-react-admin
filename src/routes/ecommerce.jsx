@@ -71,6 +71,11 @@ import OrderTodayList from "../views/ecommerce/Order/OrderTodayList";
 import DashboardAdmin from "../views/ecommerce/Dashboard/DashboardAdmin";
 import Banner from "../views/ecommerce/Settings/Banner";
 import BusinessInnovationGroup from "../views/ecommerce/Settings/BusinessInnovationGroup";
+import SellerEdit from "../views/ecommerce/Sellers/SellerEdit";
+import UserDetail from "../views/ecommerce/User/UserDetail";
+import UserEdit from "../views/ecommerce/User/UserEdit";
+import SellerAdd from "../views/ecommerce/Sellers/SellerAdd";
+import BusinessProductEdit from "../views/ecommerce/Product/BusinessProductEdit";
 
 var BASEDIR = "";
 
@@ -102,6 +107,11 @@ var dashRoutes = [
   { path: BASEDIR + "/products", component: Product, type: "child" },
   { path: BASEDIR + "/sellers", component: SellerList, type: "child" },
   { path: BASEDIR + "/seller/view", component: SellerDetail, type: "child" },
+  { path: BASEDIR + "/seller/add", component: SellerAdd, type: "child" },
+  { path: BASEDIR + "/customer/view", component: UserDetail, type: "child" },
+  { path: BASEDIR + "/customer/edit", component: UserEdit, type: "child" },
+  { path: BASEDIR + "/customer/add", component: UserEdit, type: "child" },
+  { path: BASEDIR + "/seller/edit", component: SellerEdit, type: "child" },
   { path: BASEDIR + "/customers", component: UserList, type: "child" },
   { path: BASEDIR + "/product/view", component: ViewProduct, type: "child" },
   { path: BASEDIR + "/add-product", component: AddProduct, type: "child" },
@@ -170,6 +180,11 @@ var dashRoutes = [
   {
     path: BASEDIR + "/bisnis-tambah-produk",
     component: AddProduct,
+    type: "child",
+  },
+  {
+    path: BASEDIR + "/bisnis-edit-produk",
+    component: BusinessProductEdit,
     type: "child",
   },
   {
@@ -350,6 +365,21 @@ var dashRoutes = [
   //   icon: "settings",
   //   component: null,
   // },
+
+  {
+    path: BASEDIR + "/transaksi",
+    name: "Transaksi",
+    icon: "transaction",
+    component: null,
+    type: "dropdown",
+    child: [
+      { path: BASEDIR + "/transaksi/all", name: "Semua Transaksi" },
+      {
+        path: BASEDIR + "/setting/today",
+        name: "Transaksi Hari Ini",
+      },
+    ],
+  },
   {
     path: BASEDIR + "/settings",
     name: "Pengaturan",
