@@ -139,6 +139,11 @@ export class TransactionList extends Component {
                                   disabled={submit}
                                   color="primary"
                                   size="sm"
+                                  onClick={() =>
+                                    this.props.history.push(
+                                      "detail?id=" + row.id
+                                    )
+                                  }
                                 >
                                   Lihat
                                 </Button>

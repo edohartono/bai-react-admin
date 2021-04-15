@@ -78,6 +78,7 @@ import SellerAdd from "../views/ecommerce/Sellers/SellerAdd";
 import BusinessProductEdit from "../views/ecommerce/Product/BusinessProductEdit";
 import ChangePassword from "../views/ecommerce/Settings/ChangePassword";
 import TransactionList from "../views/ecommerce/Transactions/TransactionList";
+import TransactionDetail from "../views/ecommerce/Transactions/TransactionDetail";
 
 var BASEDIR = "";
 
@@ -374,6 +375,7 @@ var dashRoutes = [
     icon: "transaction",
     component: null,
     type: "dropdown",
+    parentid: "transaksi",
     child: [
       { path: BASEDIR + "/transaksi/all", name: "Semua Transaksi" },
       {
@@ -388,12 +390,19 @@ var dashRoutes = [
     component: TransactionList,
     type: "child",
   },
+
+  {
+    path: BASEDIR + "/transaksi/detail",
+    component: TransactionDetail,
+    type: "child",
+  },
   {
     path: BASEDIR + "/settings",
     name: "Pengaturan",
     icon: "settings",
     component: null,
     type: "dropdown",
+    parentid: "setting",
     child: [
       { path: BASEDIR + "/setting/banner", name: "Banner" },
       {
