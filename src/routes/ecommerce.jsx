@@ -79,6 +79,8 @@ import BusinessProductEdit from "../views/ecommerce/Product/BusinessProductEdit"
 import ChangePassword from "../views/ecommerce/Settings/ChangePassword";
 import TransactionList from "../views/ecommerce/Transactions/TransactionList";
 import TransactionDetail from "../views/ecommerce/Transactions/TransactionDetail";
+import WithdrawList from "../views/ecommerce/Withdraw/WithdrawList";
+import WithdrawDetail from "../views/ecommerce/Withdraw/WithdrawDetail";
 
 var BASEDIR = "";
 
@@ -394,6 +396,30 @@ var dashRoutes = [
   {
     path: BASEDIR + "/transaksi/detail",
     component: TransactionDetail,
+    type: "child",
+  },
+
+  {
+    path: BASEDIR + "/withdraw",
+    name: "Penarikan Dana",
+    icon: "settings",
+    component: null,
+    type: "dropdown",
+    parentid: "withdraw",
+    child: [
+      { path: BASEDIR + "/withdraw/request", name: "Permintaan Penarikan" },
+    ],
+  },
+
+  {
+    path: BASEDIR + "/withdraw/request",
+    component: WithdrawList,
+    type: "child",
+  },
+
+  {
+    path: BASEDIR + "/withdraw/detail",
+    component: WithdrawDetail,
     type: "child",
   },
   {
